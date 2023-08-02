@@ -1,9 +1,22 @@
 # First Yaml file
 # Questa semplice pipeline crea una vnet in Azure 
-- task: CreateVnet@2
-  inputs:
-    vnetName: 'test-vnet'
-    location: 'eastus'
-    resourceGroup: 'FiNa'
-    subnet-name: 'test-subnet'
-      addressPrefix: '10.10.0.0/16'
+trigger:
+- none
+
+jobs:
+- job: CreateVnet
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      pythonVersion: '3.8'
+
+  - script: |
+      pip install -r requirements.txt
+
+  - task: CreateVnet@2
+    inputs:
+      vnetName: 'my-vnet'
+      location: 'eastus'
+      resourceGroup: 'FiNa'
+      subnetName: 'my-subnet'
+      addressPrefix: '10.0.0.0/16'
