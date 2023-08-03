@@ -1,0 +1,17 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Marco_subscription(123ac8bf-1ceb-4888-ac6d-7c76fd824333)'
+    subscriptionId: '123ac8bf-1ceb-4888-ac6d-7c76fd824333'
+    action: 'DeleteRG'
+    resourceGroupName: 'RG6'
+
