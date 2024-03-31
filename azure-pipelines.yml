@@ -4,11 +4,11 @@ pool:
 
 # Define stages in the pipeline
 stages:
-- name: Create VNET  # Stage name for creating the VNET
+  name: Create VNET  # Stage name for creating the VNET
 
 # Define steps within the stage
 steps:
-- script: |  # Multi-line script block for better readability
+  script: |  # Multi-line script block for better readability
     # Login to Azure using Azure Service Principal
     az login --service-principal -u "luca.tinelli@seznam.cz" -p "Mju76yhnbgt54rfv"
 
