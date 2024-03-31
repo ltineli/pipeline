@@ -10,13 +10,13 @@ stages:
 steps:
 - script: |  # Multi-line script block for better readability
     # Login to Azure using Azure Service Principal
-    az login --service-principal -u "your_sp_id" -p "your_sp_password" --tenant "your_tenant_id"
+    az login --service-principal -u "luca.tinelli@seznam.cz" -p "Mju76yhnbgt54rfv"
 
     # Set Azure subscription
-    az account set --subscription "your_subscription_id"
+    az account set --subscription "Marco_subscription"
 
     # Create the Virtual Network
-    az network vnet create --name "your_vnet_name" --address-prefix "10.0.0.0/16" --resource-group "your_resource_group_name"
+    az network vnet create --name "your_vnet_name" --address-prefix "10.0.0.0/16" --resource-group "Rg6"
 
   displayName: 'Create VNET'  # Display name for better logging
 
