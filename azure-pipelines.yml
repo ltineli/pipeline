@@ -15,9 +15,6 @@ steps:
     # Set Azure subscription
     az account set --subscription "your_subscription_id"
 
-    # Create Resource Group (if it doesn't exist)
-    az group create --name "your_resource_group_name" --location "your_location"
-
     # Create the Virtual Network
     az network vnet create --name "your_vnet_name" --address-prefix "10.0.0.0/16" --resource-group "your_resource_group_name"
 
