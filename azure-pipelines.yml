@@ -1,30 +1,18 @@
-# Pipeline per creare un VNET in Azure subscription
 pool:
   vmImage: 'ubuntu-latest'  # Or your preferred agent with AzureRM tools
 
-# Define stages in the pipeline
 stages:
-  name: Create VNET  # Stage name for creating the VNET
+- stage: CreateVNET
+  jobs:
+  - job: CreateVNETJob
+    steps:
+    - script: |
+        # Login to Azure using Azure Service Principal
+        az login --service-principal -u "luca.tinelli@seznam.cz" -p "Mju76yhnbgt54rfv"
 
-# Define steps within the stage
-steps:
-  script: |  # Multi-line script block for better readability
-    # Login to Azure using Azure Service Principal
-    az login --service-principal -u "luca.tinelli@seznam.cz" -p "Mju76yhnbgt54rfv"
+        # Set Azure subscription
+        az account set --subscription "Marco_subscription"
 
-    # Set Azure subscription
-    az account set --subscription "Marco_subscription"
-
-    # Create the Virtual Network
-    az network vnet create --name "Vnet_da_pipeline" --address-prefix "10.0.0.0/16" --resource-group "RG6"
-
-  displayName: 'Create VNET'  # Display name for better logging
-
-# Replace placeholders with your actual values:
-# * your_sp_id: Service principal client ID with access to create resources
-# * your_sp_password: Service principal client secret
-# * your_tenant_id: Azure tenant ID
-# * your_subscription_id: Azure subscription ID
-# * your_resource_group_name: Name for your resource group
-# * your_vnet_name: Name for your virtual network
-# * your_location: Azure region where you want to create the VNET (e.g. "eastus")
+        # Create the Virtual Network
+        az network vnet create --name "Vnet_da_pipeline" --address-prefix "10.0.0.0/16" --resource-group "RG6"
+      displayName: 'Create VNET'
