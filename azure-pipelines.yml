@@ -16,7 +16,7 @@ steps:
     az account set --subscription "Marco_subscription"
 
     # Create the Virtual Network
-    az network vnet create --name "your_vnet_name" --address-prefix "10.0.0.0/16" --resource-group "Rg6"
+    az network vnet create --name "Vnet_da_pipeline" --address-prefix "10.0.0.0/16" --resource-group "RG6"
 
   displayName: 'Create VNET'  # Display name for better logging
 
