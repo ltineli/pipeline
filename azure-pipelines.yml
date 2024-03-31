@@ -1,22 +1,33 @@
-# First Yaml file
-# Questa semplice pipeline crea una vnet in Azure 
-trigger:
-- none
+# Pipeline per creare un VNET in Azure subscription
+pool:
+  vmImage: 'ubuntu-latest'  # Or your preferred agent with AzureRM tools
 
-jobs:
-- job: CreateVnet
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      pythonVersion: '3.8'
+# Define stages in the pipeline
+stages:
+- name: Create VNET  # Stage name for creating the VNET
 
-  - script: |
-      pip install -r requirements.txt
+# Define steps within the stage
+steps:
+- script: |  # Multi-line script block for better readability
+    # Login to Azure using Azure Service Principal
+    az login --service-principal -u "your_sp_id" -p "your_sp_password" --tenant "your_tenant_id"
 
-  - task: CreateVnet@2
-    inputs:
-      vnetName: 'my-vnet'
-      location: 'eastus'
-      resourceGroup: 'FiNa'
-      subnetName: 'my-subnet'
-      addressPrefix: '10.0.0.0/1
+    # Set Azure subscription
+    az account set --subscription "your_subscription_id"
+
+    # Create Resource Group (if it doesn't exist)
+    az group create --name "your_resource_group_name" --location "your_location"
+
+    # Create the Virtual Network
+    az network vnet create --name "your_vnet_name" --address-prefix "10.0.0.0/16" --resource-group "your_resource_group_name"
+
+  displayName: 'Create VNET'  # Display name for better logging
+
+# Replace placeholders with your actual values:
+# * your_sp_id: Service principal client ID with access to create resources
+# * your_sp_password: Service principal client secret
+# * your_tenant_id: Azure tenant ID
+# * your_subscription_id: Azure subscription ID
+# * your_resource_group_name: Name for your resource group
+# * your_vnet_name: Name for your virtual network
+# * your_location: Azure region where you want to create the VNET (e.g. "eastus")
